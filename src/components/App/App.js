@@ -12,17 +12,15 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    getOrders()
-      // .then(data => console.log(data))
-      .then(data => this.setState({orders: [...data.orders]}))
-      .catch(err => console.error('Error fetching:', err));
+  addNewOrderToState = (newOrder) => {
+    if (!this.state.orders.includes(newOrder)) {
+      this.setState({orders: [...this.state.orders, newOrder]})
+    }
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     getOrders()
-      // .then(data => console.log(data))
-      .then(data => {if (data.orders !== this.state.orders) {this.setState({orders: [...data.orders]})}})
+      .then(data => this.setState({orders: [...data.orders]}))
       .catch(err => console.error('Error fetching:', err));
   }
 
@@ -31,9 +29,9 @@ class App extends Component {
       <main className="App">
         <header>
           <h1>Burrito Builder</h1>
-          <OrderForm />
+          <OrderForm addNewOrderToState={this.addNewOrderToState}/>
         </header>
-        <Orders orders={this.state.orders}/>
+        <Orders orders={this.state.orders} />
       </main>
     );
   }
