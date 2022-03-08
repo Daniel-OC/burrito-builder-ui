@@ -26,7 +26,6 @@ class App extends Component {
           <h1>Burrito Builder</h1>
           <OrderForm />
         </header>
-
         <Orders orders={this.state.orders}/>
       </main>
     );
